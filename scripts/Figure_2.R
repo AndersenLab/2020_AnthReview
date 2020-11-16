@@ -30,7 +30,7 @@ map <-ggplot()+ geom_map(data=world, map=world,
 
 mapfix <-map +geom_point(data = isolation_info%>%filter(n2=="None"),aes(x=long, y=lat, color = n2),size = 0.5)+
   geom_point(data = isolation_info%>%filter(n2=="N2"),aes(x=long, y=lat, color =n2 ),size = 0.5)+
-  scale_color_manual(values = c("None" = "black","N2"="Orange"))
+  scale_color_manual(values = c("None" = "black","N2"="black"))
 
 
 ##Phenotype change Figure 1B
