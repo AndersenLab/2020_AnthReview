@@ -1,11 +1,15 @@
 library(tidyverse)
 library(ggthemes)
 library(ggplot2)
+
+##Setwd to folder location
+
+setwd("~/Desktop/2020_AnthReview/")
 ##Map Figure 1A
 world <- map_data("world")
 world <- world[world$region != "Antarctica",]
 
-isolation_info <- readr::read_tsv("~/Desktop/2020_reviewfigure/data/CelegansStrainData.tsv")%>%
+isolation_info <- readr::read_tsv("data/CelegansStrainData.tsv")%>%
   dplyr::filter(isotype_ref_strain == TRUE)%>%
   dplyr::filter(!(release %in% c("20180413", "20200815")))%>%
   dplyr::select(strain, long=longitude, lat=latitude, landscape, substrate)%>%
@@ -30,7 +34,7 @@ mapfix <-map +geom_point(data = isolation_info%>%filter(n2=="None"),aes(x=long, 
 
 
 ##Phenotype change Figure 1B
-filtered_data <- rio::import("~/Desktop/2020_reviewfigure/data/figure1data.tsv")
+filtered_data <- rio::import("data/figure1data.tsv")
 
 abz_response <- filtered_data %>%
   dplyr::select(strain,Albendazole_q90.TOF)%>%
@@ -115,6 +119,7 @@ response_variation_lev <- full_lev %>%
         plot.margin = unit(c(0, 0.1, 0, 0.8), "cm"),
         legend.position = "none")
 
-figure_1 <- cowplot::plot_grid(mapfix,response_variation_abz,response_variation_ivm,response_variation_lev, nrow = 4, ncol=1,labels = c("A","B","C","D"))
-ggsave(filename = "~/Desktop/2020_reviewfigure/plots/Review_figure1.png", plot = figure_1, device = "png",height = 8,width = 6,units = 'in')
-ggsave(filename = "~/Desktop/2020_reviewfigure/plots/Review_figure1.pdf", plot = figure_1, device = "pdf",height = 8,width = 6,units = 'in')
+figure_2 <- cowplot::plot_grid(mapfix,response_variation_abz,response_variation_ivm,response_variation_lev, nrow = 4, ncol=1,labels = c("A","B","C","D"))
+ggsave(filename = "plots/Review_figure2.png", plot = figure_2, device = "png",height = 8,width = 6,units = 'in')
+ggsave(filename = "plots/Review_figure2.pdf", plot = figure_2, device = "pdf",height = 8,width = 6,units = 'in')
+
